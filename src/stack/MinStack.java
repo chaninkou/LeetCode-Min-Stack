@@ -3,29 +3,28 @@ package stack;
 import java.util.Stack;
 
 public class MinStack {
-    int min = Integer.MAX_VALUE;
-
-    Stack<Integer> stack = new Stack<>();
+	int min = Integer.MAX_VALUE;
+	
+	Stack<Integer> stack = new Stack<>();
   
     // Reason why we push twice is so we could keep track of min and second min
     public void push(int x) {
-        // If the value is less than min, then push the min first and then push the value
-        if(x <= min){
-        	// Push the previous min
-        	stack.push(min);
-        	
-        	// Min will now equal to current min
-        	min = x;
-        }
-        
-        // Push the current min
-        stack.push(x);
+    	// We want equal to because we need to know which one is the second min also
+    	if(x <= min){
+    		// Push the second min
+    		stack.add(min);
+    		
+    		// Update the current min
+    		min = x;
+    	}
+    	
+    	// Push the value no matter what
+    	stack.push(x);
     }
     
+    // For pop(), we gotta make sure we update the min value if we popped the min value
     public void pop() {
-        // If pop is min, then pop again to get the second min.
     	if(stack.pop() == min){
-    		// The min will be the second min now
     		min = stack.pop();
     	}
     }
